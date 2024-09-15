@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  #file-upload-form {
+    margin: 20px auto;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #uploaded-files {
+    margin-top: 20px;
+  }
+  
+  #uploaded-files ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #uploaded-files li {
+    margin-bottom: 10px;
+  }
+  
+  #uploaded-files a {
+    text-decoration: none;
+    color: #337ab7;
+  }
+  
+  #uploaded-files a:hover {
+    color: #23527c;
+  }
