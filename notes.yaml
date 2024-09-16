@@ -1,0 +1,6 @@
+goal: be a software developer
+
+todo:
+  - have unauthenticated users who try to enter the home page get redirected to the login page (complete)
+  - have authenticated users get redirected to the home page when logged in or attempt to revisit the login page ( incomplete )
+  - have a function registration page that stores user login information inside of database (incomplete)
