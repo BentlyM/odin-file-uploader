@@ -20,6 +20,7 @@ export const GET_home = (req: Request, res: Response) => {
 
 // register
 export const GET_register = (req: Request, res: Response) => {
+  if(req.user) return res.redirect('/');
   const error = req.query.errors;
   res.render('register', { error });
 };
@@ -71,6 +72,7 @@ export const POST_register = async (
 
 // login
 export const GET_login = (req: Request, res: Response) => {
+  if(req.user) return res.redirect('/');
   const error = req.query.errors;
   res.render('login', { error });
 };
