@@ -8,7 +8,7 @@ import loggerMiddleware from './middleware/logger';
 const app = express();
 
 const PORT = +(process.env.PORT || 8080);
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
 
 app.use(session({ secret: 'cats', resave: false, saveUninitialized: false }));
 app.use(passport.session());
