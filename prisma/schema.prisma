@@ -14,19 +14,33 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  username String?
-  password String
-  uploads Upload[]
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  username   String   @unique
+  password   String
+  folders    Folder[]
+  files      File[]
+  maxUse     Int      @default(10485760) //10 MB
+  currentUse Int      @default(0)
 }
 
-model Upload {
-  id Int @id @default(autoincrement())
-  file_name String
-  file_data Bytes
-  date DateTime @default(now())
-  size Float
-  author User @relation(fields: [authorId], references: [id])
-  authorId Int
+model Folder {
+  id     Int    @id @default(autoincrement())
+  name   String
+  files  File[]
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+  uniqueName String   @unique
+  name       String
+  folder     Folder?  @relation(fields: [folderId], references: [id])
+  folderId   Int?
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  path       String
+  uploadedAt DateTime @default(now())
+  size       Int
 }
