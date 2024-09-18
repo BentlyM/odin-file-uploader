@@ -16,6 +16,7 @@
   "dependencies": {
     "@prisma/client": "^5.19.1",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "@supabase/supabase-js": "^2.45.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/ejs": "^3.1.5",
     "@types/express-session": "^1.18.0",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
     "copyfiles": "^2.4.1"
   }
 }

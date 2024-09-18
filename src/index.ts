@@ -1,9 +1,11 @@
 import express from 'express';
 import path from 'path';
-import router from './routes/routes';
 import session from 'express-session';
 import passport from 'passport';
 import loggerMiddleware from './middleware/logger';
+import {default as authRouter} from './routes/authRoutes';
+import {default as homeRouter} from './routes/homeRoutes';
+import {default as fileRouter} from './routes/fileRoutes';
 
 const app = express();
 
@@ -23,7 +25,9 @@ const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
 app.use(loggerMiddleware);
 
-app.use('/', router)
+app.use('/', authRouter);
+app.use('/', homeRouter);
+app.use('/', fileRouter);
 
 app.listen(PORT, hostname, ()=>{
     console.log(`listening on server http://${hostname}:${PORT}`);

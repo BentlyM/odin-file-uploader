@@ -1,18 +1,14 @@
 import express from 'express';
 import {
-  GET_home,
   GET_login,
   GET_register,
   logout,
   POST_register,
-} from '../controllers/uploaderControllers';
+} from '../controllers/authControllers';
 import '../strategies/local-strategy';
 import passport from 'passport';
 
 const router = express.Router();
-
-//home
-router.get('/', GET_home);
 
 //login
 router.get('/login', GET_login);
