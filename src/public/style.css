@@ -2,8 +2,8 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
   }
-  
-  #file-upload-form {
+
+  .upload-options {
     margin: 20px auto;
     width: 50%;
     padding: 20px;
@@ -67,4 +67,8 @@ body {
   
   button[type="submit"]:hover {
     background-color: #3e8e41;
+  }
+
+  .hidden {
+    display: none;
   }

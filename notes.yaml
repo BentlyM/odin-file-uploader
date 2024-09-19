@@ -6,3 +6,6 @@ todo:
   - have a function registration page that stores user login information inside of database (complete)
   - add some client side error handling (incomplete)
   - add some server side error handling (complete)
+  - add adding folders and adding files forms (complete)
+    - requirements: ( unknown )
+    

@@ -11,11 +11,26 @@
         <button type="submit">Logout</button>
       </form>
     </header>
-    
-    <form id="file-upload-form" enctype="multipart/form-data" method="post">
-      <input type="file" name="file" id="file" />
-      <button type="submit">Upload File</button>
-    </form>
+
+    <div class="upload-options">
+      <form id="file-upload-form" enctype="multipart/form-data" method="post" class="hidden">
+        <input type="file" name="file" id="file" required/>
+        <button type="submit">Upload File</button>
+        <button type="button" id="fileFormCancel">Cancel</button>
+      </form>
+
+      <form id="folder-upload-form" method="post" class="hidden">
+        <label for="folderName">
+          Folder Name:
+          <input type="text" name="folderName" id="folder" style="width: fit-content;" required/>
+        </label>
+        <button type="submit">Upload Folder</button>
+        <button type="button" id="folderFormCancel">Cancel</button>
+      </form>
+
+      <button id="addFileButton">📄 Upload File</button>
+      <button id="addFolderButton">📁 Add Folder</button>
+    </div>
     
     <div id="uploaded-files">
       <h2>Uploaded Files:</h2>
