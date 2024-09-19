@@ -2,6 +2,7 @@
   "name": "backend-typescript-template",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles -u 1 src/views/**/* dist && copyfiles -u 1 src/public/**/* dist && copyfiles -u 1 src/public/* dist",
     "dev": "ts-node-dev --respawn src/index.ts",
