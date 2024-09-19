@@ -5,30 +5,16 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-// home
-export const GET_home = (req: Request, res: Response) => {
-  if (!req.user) return res.redirect('/login');
-
-  res.render('home', {
-    user: req.user,
-    uploadedFiles: [
-      { filename: 'placeholder' },
-      { filename: 'placeholder' },
-      { filename: 'placeholder' },
-    ],
-  });
-};
-
-export const POST_home = async (req: Request, res: Response) => {
+export const POST_upload = async (req: Request, res: Response) => {
   try {
-    const file = req.file;
+    const currentFile = req.file;
     const currentUser = req.user as {id : number};
 
-    if (!file) {
+    if (!currentFile) {
       return res.status(400).json({ msg: 'Please upload files' });
     }
 
-    const { originalname, buffer } = file;
+    const { originalname, buffer } = currentFile;
     const filename = `${uuidv4()}_${originalname}`;
 
     const { data, error } = await supabase.storage
@@ -37,14 +23,16 @@ export const POST_home = async (req: Request, res: Response) => {
 
     const fileUrl = `${process.env.SUPABASE_PROJECT_URL}/storage/v1/object/public/documentation/${filename}`;
 
-    if(file['fieldname'] == 'file'){
+    if(currentFile['fieldname'] == 'file'){
       await prisma.file.create({
         data: {
           uniqueName: filename,
-          name: file.originalname,
+          name: currentFile.originalname,
           path: fileUrl,
-          userId: currentUser.id,
-          size: file.size 
+          user: {
+            connect: {id : currentUser.id}
+          },
+          size: currentFile.size 
         }
       })
     }
@@ -55,10 +43,12 @@ export const POST_home = async (req: Request, res: Response) => {
         .json({ msg: 'Upload failed', error: error.message });
     }
 
-    return res
-      .status(200)
-      .json({ msg: 'File uploaded successfully', uploaded_file: { data, fileUrl } });
+    return res.redirect('/');
   } catch (err: any) {
     return res.status(500).json({ err: err.message });
   }
 };
+
+export const POST_addFolder = async (req: Request, res: Response) => {
+  res.json({msg: 'not completed yet...'});
+}

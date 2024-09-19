@@ -13,13 +13,13 @@
     </header>
 
     <div class="upload-options">
-      <form id="file-upload-form" enctype="multipart/form-data" method="post" class="hidden">
+      <form id="file-upload-form" enctype="multipart/form-data" action="/upload" method="post" class="hidden">
         <input type="file" name="file" id="file" required/>
         <button type="submit">Upload File</button>
         <button type="button" id="fileFormCancel">Cancel</button>
       </form>
 
-      <form id="folder-upload-form" method="post" class="hidden">
+      <form id="folder-upload-form" action="/addfolder" method="post" class="hidden">
         <label for="folderName">
           Folder Name:
           <input type="text" name="folderName" id="folder" style="width: fit-content;" required/>
@@ -35,9 +35,13 @@
     <div id="uploaded-files">
       <h2>Uploaded Files:</h2>
       <ul>
+        <% if (uploadedFiles.length !== 0){ %>
         <% uploadedFiles.forEach(file => { %>
-        <li><a href="/files/<%= file.filename %>"><%= file.filename %></a></li>
+        <li><a href="/files/<%= file.uniqueName %>"><%= file.name %></a></li>
         <% }) %>
+        <% }else{ %>
+          <li>No Files...</li>
+          <% } %>
       </ul>
     </div>
 
