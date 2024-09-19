@@ -27,7 +27,7 @@ export default passport.use(
     async (email: string, password: string, done) => {
       try {
         const user = await prisma.user.findUnique({
-          where: { email },
+          where: { email : email.toLowerCase() },
         });
 
         if (!user) {

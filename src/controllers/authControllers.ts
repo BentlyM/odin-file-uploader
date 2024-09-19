@@ -60,7 +60,7 @@ export const POST_register = async (
     });
   } catch (e) {
     console.error('Error during registration:', e);
-    res.redirect(
+    return res.redirect(
       `/register?errors=${encodeURIComponent('Something went wrong')}`
     );
   }
