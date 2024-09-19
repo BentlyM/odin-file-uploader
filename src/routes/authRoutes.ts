@@ -20,7 +20,9 @@ router.post('/login', (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      console.log('Authentication failed:', info.message);
+      res.redirect(
+        `/login?errors=${encodeURIComponent(`${info.message}`)}`
+      );
       return res.status(401).json({ message: info.message });
     }
     req.logIn(user, (err) => {
