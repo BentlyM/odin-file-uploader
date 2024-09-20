@@ -9,7 +9,7 @@ export const POST_upload = async (req: Request, res: Response) => {
   try {
     const currentFile = req.file;
     const currentUser = req.user as { id: number };
-    const folder: number = parseInt(req.body.folder);
+    const folderId: number = parseInt(req.body.folder);
 
     if (!currentFile) {
       return res.status(400).json({ msg: 'Please upload files' });
@@ -34,11 +34,11 @@ export const POST_upload = async (req: Request, res: Response) => {
             connect: { id: currentUser.id },
           },
           size: currentFile.size,
-          ...(folder
+          ...(folderId
             ? {
                 folder: {
                   connect: {
-                    id: folder as number,
+                    id: folderId as number,
                   },
                 },
               }
