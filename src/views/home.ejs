@@ -13,35 +13,89 @@
     </header>
 
     <div class="upload-options">
-      <form id="file-upload-form" enctype="multipart/form-data" action="/upload" method="post" class="hidden">
-        <input type="file" name="file" id="file" required/>
-        <button type="submit">Upload File</button>
-        <button type="button" id="fileFormCancel">Cancel</button>
+      <form
+        id="file-upload-form"
+        enctype="multipart/form-data"
+        action="/upload"
+        method="post"
+        class="hidden"
+      >
+        <div>
+          <input type="file" name="file" id="file" required/>
+          <select id="folder-select" name="folder">
+            <option value="">Select a folder</option>
+            <% folders.forEach(folder => { %>
+              <option value="<%= folder.id %>" data-id="<%= folder.id %>"><%= folder.name %></option>
+            <% }); %>
+          </select>
+          <button type="submit" style="font-size: 14px; padding: 5px 10px;">Upload File</button>
+          <span style="font-size: 12px; color: #aaa;">(2 MB limit)</span>
+          <button type="button" id="fileFormCancel" style="font-size: 14px; padding: 5px 10px;">Cancel</button>
+        </div>
+        <span id="fileError" style="color: red"></span>
       </form>
-
-      <form id="folder-upload-form" action="/addfolder" method="post" class="hidden">
+    
+      <form
+        id="folder-upload-form"
+        action="/addfolder"
+        method="post"
+        class="hidden"
+      >
         <label for="folderName">
           Folder Name:
-          <input type="text" name="folderName" id="folder" style="width: fit-content;" required/>
+          <input
+            type="text"
+            name="folderName"
+            id="folder"
+            style="width: fit-content"
+            required
+          />
         </label>
-        <button type="submit">Upload Folder</button>
-        <button type="button" id="folderFormCancel">Cancel</button>
+        <button type="submit" style="font-size: 14px; padding: 5px 10px;">Upload Folder</button>
+        <button type="button" id="folderFormCancel" style="font-size: 14px; padding: 5px 10px;">Cancel</button>
       </form>
-
-      <button id="addFileButton">📄 Upload File</button>
-      <button id="addFolderButton">📁 Add Folder</button>
-    </div>
     
+      <button id="addFileButton" style="font-size: 16px; padding: 10px 20px;">📄 Upload File</button>
+      <button id="addFolderButton" style="font-size: 16px; padding: 10px 20px;">📁 Add Folder</button>
+    </div>
+
     <div id="uploaded-files">
       <h2>Uploaded Files:</h2>
       <ul>
-        <% if (uploadedFiles.length !== 0){ %>
-        <% uploadedFiles.forEach(file => { %>
-        <li><a href="/files/<%= file.uniqueName %>"><%= file.name %></a></li>
-        <% }) %>
-        <% }else{ %>
-          <li>No Files...</li>
-          <% } %>
+        <% if (uploadedFiles.length === 0 && folders.length === 0) { %>
+        <li>No Files/folders...</li>
+        <% } else { %> <% uploadedFiles.forEach(file => { %>
+        <li style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
+          <a href="/files/<%= file.uniqueName %>"> <%= file.name %> </a>
+          <span style="display: flex; margin-left: 10px; flex-direction: row;">
+            <form>
+              <button
+                type="submit"
+                formaction="/files/<%= file.uniqueName %>/download"
+                formmethod="get"
+                style="font-size: 12px; padding: 5px 10px"
+              >
+                Download
+              </button>
+            </form>
+            <form>
+              <button
+                type="submit"
+                formaction="/files/<%= file.uniqueName %>?_method=DELETE"
+                formmethod="post"
+                style="font-size: 12px; padding: 5px 10px; margin-left: 10px"
+              >
+                Delete
+              </button>
+            </form>
+          </span>
+        </li>
+        <% }); %> <% folders.forEach(folder => { %>
+        <li>
+          <a href="/folders/<%= folder.name %>/<%= folder.id %>"> <%= folder.name %> </a>
+          <!-- Add folder-specific actions (if needed) -->
+        </li>
+        <% }); %> <% } %>
       </ul>
     </div>
 

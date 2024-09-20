@@ -4,6 +4,7 @@ const fileForm = document.getElementById('file-upload-form');
 const folderForm = document.getElementById('folder-upload-form');
 const fileCancelBtn = document.getElementById('fileFormCancel');
 const folderCancelBtn = document.getElementById('folderFormCancel');
+const fileError = document.getElementById('fileError');
 
 fileBtn.addEventListener('click', (e)=>{
     e.target.classList.toggle('hidden');

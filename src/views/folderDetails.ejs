@@ -1,0 +1,96 @@
+<style>
+  .folder-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .folder-details h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+  }
+
+  .folder-details p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  .file-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .file-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .file-list li:last-child {
+    border-bottom: none;
+  }
+
+  .file-list a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  .file-list a:hover {
+    text-decoration: underline;
+  }
+
+  .file-list span {
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  .empty-folder {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #888;
+  }
+</style>
+
+<%
+  function formatSize(size) {
+    const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    let index = 0;
+    if(!size) return;
+    while (size > 1024 && index < units.length - 1) {
+      size /= 1024;
+      index++;
+    }
+    return `${size.toFixed(2)} ${units[index]}`;
+  }
+%>
+
+<div class="folder-details">
+  <% if (folder && folder.files && folder.files.length > 0) { %>
+    <h1><%= folder.name %></h1>
+    <p>Folder Size: <%= formatSize(folder.totalSize) %></p>
+    
+    <ul class="file-list">
+      <% folder.files.forEach(file => { %>
+        <li>
+          <a href="/files/<%= file.uniqueName %>"><%= file.name %></a>
+          <span>Size: <%= formatSize(file.size) %></span>
+          <span>Uploaded: <%= file.uploadedAt.toLocaleString() %></span>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <h1>No Files Found</h1>
+    <p>This folder is empty.</p>
+  <% } %>
+</div>

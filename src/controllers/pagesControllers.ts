@@ -15,8 +15,15 @@ export const GET_home = async (req: Request, res: Response) => {
       }
     });
 
+    const folders = await prisma.folder.findMany({
+      where: {
+        userId: currentUser.id,
+      }
+    })
+
     res.render('home', {
       user: req.user,
-      uploadedFiles
+      uploadedFiles,
+      folders: folders
     });
   };

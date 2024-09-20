@@ -1,0 +1,84 @@
+<!-- file.ejs -->
+
+<!-- Add some basic styling -->
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center; /* Center the content */
+  }
+
+  h1 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto; /* Center the list */
+    width: 50%; /* Adjust the width to fit the content */
+  }
+
+  ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  ul li:last-child {
+    border-bottom: none;
+  }
+
+  form {
+    margin-top: 20px;
+    width: 50%; /* Adjust the width to fit the content */
+    margin: 0 auto; /* Center the form */
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type='text'] {
+    padding: 10px;
+    width: 80%; /* Adjust the width to fit the content */
+  }
+
+  button[type='submit'] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button[type='submit']:hover {
+    background-color: #3e8e41;
+  }
+</style>
+
+<!-- File details -->
+<h1>File: <%= file.name %></h1>
+
+<!-- Read Operation -->
+<p>File Details:</p>
+<ul>
+  <li>Unique Name: <%= file.uniqueName %></li>
+  <li>File Name: <%= file.name %></li>
+  <li> File Size: <%= (file.size / 1048576).toFixed(2) %> MB</li>
+  <span>Uploaded: <%= file.uploadedAt.toLocaleString() %></span>
+</ul>
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <!-- Download Operation -->
+  <form action="/files/<%= file.uniqueName %>/download" method="get">
+    <button type="submit">Download File</button>
+  </form>
+
+  <!-- Delete Operation -->
+  <form action="/files/<%= file.uniqueName %>?_method=DELETE" method="post">
+    <button type="submit">Delete File</button>
+  </form>
+</div>
