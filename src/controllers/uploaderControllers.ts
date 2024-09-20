@@ -75,7 +75,7 @@ export const POST_addFolder = async (req: Request, res: Response) => {
     },
   });
 
-  res.json({ msg: 'folder created', foldername: { folder: folder } });
+  res.redirect('/');
 };
 
 export const GET_upload = async (req: Request, res: Response) => {
